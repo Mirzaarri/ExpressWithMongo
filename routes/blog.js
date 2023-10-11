@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const blogController = require('../controllers/blog');
 
-//posting data
+//posting data..
 router.post('/creatblog', blogController.createBlog)
 router.post('/creatmultipleblogs', blogController.createMultipleBlogs)
 router.get('/getblog', blogController.getData)
