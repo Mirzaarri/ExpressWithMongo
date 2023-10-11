@@ -43,7 +43,7 @@ const createBlog = async (req, res) =>{
   //getting single data using params
     const getSingleData = async (req, res) =>{
       try {
-        const blog = await Blog.findById(req.params.id)
+        const blog = await Blog.findById(req.params.id) //req.params.id = 651fdba4b6cf144d4ad0b18c
         res.json(blog);
       } catch (err) {
         res.status(500).json({error: err.message})
@@ -64,7 +64,7 @@ const getSingleDataWithQuery = async (req, res)=>{
   //getting single data using Query
   const getSingleDataWithNameQuery = async (req, res)=>{
     try{
-      const getBlog = await Blog.findOne({title: req.query.title});
+      const getBlog = await Blog.findOne({title: req.query.title}); //title: Shadow
         res.json(getBlog)
     } catch(error){
       res.status(500).json({error: error.message});
@@ -92,6 +92,9 @@ const getSingleDataWithQuery = async (req, res)=>{
             res.status(500).json({error: err.message})
           }
           }
+
+
+
   module.exports = {
     createBlog, 
     getData, 
@@ -100,5 +103,5 @@ const getSingleDataWithQuery = async (req, res)=>{
     getSingleDataWithNameQuery,
     deleteData, 
     updateData, 
-    createMultipleBlogs
+    createMultipleBlogs,
   }

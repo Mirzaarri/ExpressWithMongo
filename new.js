@@ -7,17 +7,17 @@ let PORT = 4000;
 let mongoose = require('./config/connection');
 let userRoutes = require('./routes/user')
 let blogRouter = require('./routes/blog')
-
-app.get("/home",(req,res)=>{
-  res.send({"name":"my"});
-})
+let signupRouter = require('./routes/login')
+// app.get("/home",(req,res)=>{
+//   res.send({"name":"my"});
+// })
 
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use('/user', userRoutes)
 app.use('/blog', blogRouter)
-
+app.use('/loginsystem', signupRouter)
 
 app.listen(PORT, 'localhost', (req, res)=>{
   console.log(`Server starting at ${PORT}`);
