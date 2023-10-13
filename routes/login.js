@@ -8,7 +8,7 @@ const { checkUserRole } = require('../middleware/roles')
 router.post('/signup', loginController.signupUser);
 router.post('/signin', loginController.loginUser);
 router.post('/forgotpassword', loginController.forgotPassword);
-router.put('/resetpassword', loginController.resetPassword);
+router.put('/resetpassword', authenticateWithToken,checkUserRole(['user']), loginController.resetPassword);
 
 // Get data with role-based access
 router.get('/getdata', authenticateWithToken, checkUserRole(['admin']), loginController.getAllData);
