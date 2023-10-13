@@ -135,7 +135,7 @@ const forgotPassword = async (req, res) => {
 
     const resetLink = `http://localhost:4000/loginsystem/resetpassword?otp=${resetOtp}`;
     const mailOptions = {
-      from: "arslan.mirza14321@outlook.com",
+      from: "mirzaarrii@outlook.com",
       to: user.email,
       subject: 'Password Reset',
       text: `Click the following link to reset your password: ${resetLink}`,
@@ -146,8 +146,8 @@ const forgotPassword = async (req, res) => {
       port: 587,
       secure: false, // TLS
       auth: {
-        user: "arslan.mirza14321@outlook.com",
-        pass: "Arro14321",
+        user: "mirzaarrii@outlook.com",
+        pass: "Arri14321",
       },
 });
 
@@ -193,7 +193,8 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ error: 'Invalid or expired OTP'});
     }
     // Update the user's password
-    user.password = newPassword;
+    const hashPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashPassword;
     user.otp = null;
     user.resetPasswordExpires = null;
     await user.save();
