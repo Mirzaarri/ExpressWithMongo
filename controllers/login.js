@@ -9,7 +9,6 @@ const signupUser = async (req, res) => {
   try {
     const { username, email, password, role } = req.body; // Add 'role' to the destructuring
     const hashPassword = await bcrypt.hash(password, 10);
-
     const newUser = new User({ username, email, password: hashPassword, role });
     await newUser.save();
 
@@ -55,7 +54,7 @@ const forgotPassword = async (req, res) => {
 
     const resetLink = `http://localhost:4000/loginsystem/resetpassword?token=${resetToken}`;
     const mailOptions = {
-      from: 'arslan.mirza14321@outlook.com',
+      from: process.env.credEmail,
       to: user.email,
       subject: 'Password Reset',
       text: `Click the following link to reset your password: ${resetLink}`,
@@ -66,8 +65,8 @@ const forgotPassword = async (req, res) => {
       port: 587,
       secure: false, // TLS
       auth: {
-        user: 'arslan.mirza14321@outlook.com',
-        pass: 'Arri1$3@1',
+        user: process.env.credEmail,
+        pass: process.env.credPassword,
       },
 });
 
@@ -133,4 +132,33 @@ const getAllData = async (req, res) => {
   }
 };
 
-module.exports = {signupUser, loginUser, forgotPassword, resetPassword, getAllData}
+const deleteUser = async (req, res) => {
+  try {
+    const userRole = req.user.role;
+    if (userRole === 'admin') {
+    const user = await User.findByIdAndDelete(req.params.id)
+    res.json("user deleted successfully");
+    }
+  } catch (err) {
+    res.status(500).json({error: err.message})
+  }
+}
+
+const createuser = async (req, res) => {
+  try {
+    const userRole = req.user.role;
+    if (userRole === 'admin') {
+    const { username, email, password, role } = req.body; // Add 'role' to the destructuring
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({ username, email, password: hashPassword, role });
+    await newUser.save();
+
+    res.status(201).json({ message: 'User created successfully' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {signupUser, loginUser, forgotPassword, resetPassword, getAllData, deleteUser, createuser}

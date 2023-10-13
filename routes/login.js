@@ -12,5 +12,7 @@ router.put('/resetpassword', loginController.resetPassword);
 
 // Get data with role-based access
 router.get('/getdata', authenticateWithToken, checkUserRole(['admin']), loginController.getAllData);
+router.delete('/deletedata/:id', authenticateWithToken, checkUserRole(['admin']), loginController.deleteUser);
+router.post('/createuser', authenticateWithToken, checkUserRole(['admin']), loginController.createuser);
 
 module.exports = router;
