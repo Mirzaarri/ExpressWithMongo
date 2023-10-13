@@ -8,6 +8,8 @@ let mongoose = require('./config/connection');
 let userRoutes = require('./routes/user')
 let blogRouter = require('./routes/blog')
 let signupRouter = require('./routes/login')
+let productRouter = require('./routes/product')
+let quantityRouter = require('./routes/quantity')
 // app.get("/home",(req,res)=>{
 //   res.send({"name":"my"});
 // })
@@ -18,6 +20,8 @@ app.use(bodyParser.json());
 app.use('/user', userRoutes)
 app.use('/blog', blogRouter)
 app.use('/loginsystem', signupRouter)
+app.use('/', quantityRouter)
+app.use('/', productRouter)
 
 app.listen(PORT, 'localhost', (req, res)=>{
   console.log(`Server starting at ${PORT}`);
