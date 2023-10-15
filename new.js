@@ -1,7 +1,7 @@
-const express = require('express');
-const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
+const express = require('express');
+const app = express();
 const bodyParser = require("body-parser")
 let PORT = 4000;
 let mongoose = require('./config/connection');

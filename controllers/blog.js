@@ -49,8 +49,6 @@ const createBlog = async (req, res) =>{
         res.status(500).json({error: err.message})
       }
       }
-
-
   //getting single data using Query
 const getSingleDataWithQuery = async (req, res)=>{
   try{

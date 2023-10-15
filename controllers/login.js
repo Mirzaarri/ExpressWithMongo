@@ -135,7 +135,7 @@ const forgotPassword = async (req, res) => {
 
     const resetLink = `http://localhost:4000/loginsystem/resetpassword?otp=${resetOtp}`;
     const mailOptions = {
-      from: "mirzaarrii@outlook.com",
+      from: process.env.CRED_EMAIL,
       to: user.email,
       subject: 'Password Reset',
       text: `Click the following link to reset your password: ${resetLink}`,
@@ -146,8 +146,8 @@ const forgotPassword = async (req, res) => {
       port: 587,
       secure: false, // TLS
       auth: {
-        user: "mirzaarrii@outlook.com",
-        pass: "Arri14321",
+        user: process.env.CRED_EMAIL,
+        pass: process.env.CRED_PASSWORD,
       },
 });
 
